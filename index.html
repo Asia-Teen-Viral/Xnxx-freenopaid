@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loading...</title>
+
+<style>
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+}
+video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Overlay untuk klik pertama -->
+<div id="overlay"></div>
+
+<!-- Video -->
+<video id="video" autoplay muted playsinline>
+    <source src="https://res.cloudinary.com/dtvtvfnq9/video/upload/MOV_17665173842637445_s6aisc.mp4" type="video/mp4">
+</video>
+
+<script>
+const adLink = "https://departharpglove.com/dgqqxmts?key=dd4e682a13006c815ca00a7d946202db";
+const visited = sessionStorage.getItem("visited");
+
+if (!visited) {
+    // KUNJUNGAN PERTAMA → IKLAN
+    document.getElementById("overlay").onclick = function () {
+        sessionStorage.setItem("visited", "1");
+        window.location.href = adLink;
+    };
+} else {
+    // SETELAH BALIK DARI IKLAN
+    document.getElementById("overlay").style.display = "none";
+
+    const v = document.getElementById("video");
+    v.play().catch(() => {});
+
+    // REDIRECT KE-2 SETELAH 25 DETIK
+    setTimeout(function () {
+        window.location.href = adLink;
+    }, 25000);
+}
+</script>
+
+</body>
+</html>
