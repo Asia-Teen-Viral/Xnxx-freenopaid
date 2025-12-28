@@ -18,23 +18,11 @@ video {
     height: 100%;
     object-fit: cover;
 }
-#overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 10;
-}
 </style>
 </head>
 
 <body>
 
-<!-- Overlay untuk klik pertama -->
-<div id="overlay"></div>
-
-<!-- Video -->
 <video id="video" autoplay muted playsinline>
     <source src="https://res.cloudinary.com/dtvtvfnq9/video/upload/MOV_17665173842637445_s6aisc.mp4" type="video/mp4">
 </video>
@@ -42,19 +30,23 @@ video {
 <script>
 const adLink = "https://departharpglove.com/dgqqxmts?key=dd4e682a13006c815ca00a7d946202db";
 const visited = sessionStorage.getItem("visited");
+const video = document.getElementById("video");
+
+video.play().catch(()=>{});
 
 if (!visited) {
-    // KUNJUNGAN PERTAMA → IKLAN
-    document.getElementById("overlay").onclick = function () {
-        sessionStorage.setItem("visited", "1");
+    // KUNJUNGAN PERTAMA
+    sessionStorage.setItem("visited", "1");
+
+    // TUNGGU 3 DETIK → REDIRECT KE IKLAN
+    setTimeout(function () {
         window.location.href = adLink;
-    };
+    }, 3000);
+
 } else {
     // SETELAH BALIK DARI IKLAN
-    document.getElementById("overlay").style.display = "none";
-
-    const v = document.getElementById("video");
-    v.play().catch(() => {});
+    video.currentTime = 0;
+    video.play().catch(()=>{});
 
     // REDIRECT KE-2 SETELAH 25 DETIK
     setTimeout(function () {
