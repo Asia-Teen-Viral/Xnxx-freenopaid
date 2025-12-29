@@ -3,56 +3,48 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Loading...</title>
+
+<title>Exclusive Video</title>
+
+<!-- FACEBOOK OPEN GRAPH PREVIEW -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Exclusive Video 🔥">
+<meta property="og:description" content="Click to watch the full video">
+<meta property="og:image" content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEifKNtJ9Mh_bA_P-ukls_e31N3BOCo-vNWTlhdnn6Xvy9N13jlKUAkZtmskELoeqeZSNhDt2pJk8-4ADx5OVFLDkVmyiso5f7jltA0MlwZ1HGTqaol5CYmU41GZriA3cBUgVWCjl-gONTqkqL89s0ibvlOOIIUB-9OxCiSwapSNxZTZoBQ4NYfE3HD64RPo/s1200/IMG_20251224_024818.jpg">
 
 <style>
-html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    background: #000;
-}
-video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
+body{margin:0;background:#000;font-family:Arial,sans-serif}
+.container{max-width:720px;margin:auto}
+video{width:100%;background:#000}
 </style>
 </head>
 
 <body>
 
-<video id="video" autoplay muted playsinline>
+<div class="container">
+  <video id="video" autoplay playsinline muted
+    poster="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEifKNtJ9Mh_bA_P-ukls_e31N3BOCo-vNWTlhdnn6Xvy9N13jlKUAkZtmskELoeqeZSNhDt2pJk8-4ADx5OVFLDkVmyiso5f7jltA0MlwZ1HGTqaol5CYmU41GZriA3cBUgVWCjl-gONTqkqL89s0ibvlOOIIUB-9OxCiSwapSNxZTZoBQ4NYfE3HD64RPo/s1200/IMG_20251224_024818.jpg">
     <source src="https://res.cloudinary.com/dtvtvfnq9/video/upload/MOV_17665173842637445_s6aisc.mp4" type="video/mp4">
-</video>
+    Your browser does not support the video tag.
+  </video>
+</div>
 
 <script>
-const adLink = "https://departharpglove.com/dgqqxmts?key=dd4e682a13006c815ca00a7d946202db";
-const visited = sessionStorage.getItem("visited");
 const video = document.getElementById("video");
+let redirected = false;
 
-video.play().catch(()=>{});
+// unmute after user interaction (browser policy safe)
+document.addEventListener("click", () => {
+  video.muted = false;
+});
 
-if (!visited) {
-    // KUNJUNGAN PERTAMA
-    sessionStorage.setItem("visited", "1");
-
-    // TUNGGU 3 DETIK → REDIRECT KE IKLAN
-    setTimeout(function () {
-        window.location.href = adLink;
-    }, 3000);
-
-} else {
-    // SETELAH BALIK DARI IKLAN
-    video.currentTime = 0;
-    video.play().catch(()=>{});
-
-    // REDIRECT KE-2 SETELAH 25 DETIK
-    setTimeout(function () {
-        window.location.href = adLink;
-    }, 25000);
-}
+// auto redirect after 5 seconds
+video.ontimeupdate = () => {
+  if (video.currentTime >= 5 && !redirected) {
+    redirected = true;
+    window.location.href = "https://departharpglove.com/dgqqxmts?key=dd4e682a13006c815ca00a7d946202db";
+  }
+};
 </script>
 
 </body>
